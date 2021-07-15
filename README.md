@@ -25,7 +25,7 @@
 9. Show a success message on clicking continue button if a valid data entry is made.
 10. The HTML page should comply with [WCAG 2.1 level AA](https://www.gov.uk/service-manual/helping-people-to-use-your-service/understanding-wcag)
 
-![Personal detail form](https://github.com/SundarRajNarayanan/Survey-Form/blob/main/Personal%20detail%20form.png?raw=true)
+
 
 
 ## Scripts
