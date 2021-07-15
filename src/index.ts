@@ -1,4 +1,3 @@
-import "./styles.css";
 import * as _ from "lodash";
 
 window.addEventListener("load", () => {
@@ -10,4 +9,4 @@ window.addEventListener("load", () => {
     const element = document.createElement("h2")
     element.innerText = _.find(fe, {id: 1})?.name;
     body.appendChild(element);
-})
+});

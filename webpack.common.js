@@ -25,13 +25,13 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'bundle.[hash].js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "./src/templates/index.html")
+      template: path.resolve(__dirname, "./src/index.html")
     }),
     new MiniCssExtractPlugin({filename: "styles.[hash].css"})
   ]
