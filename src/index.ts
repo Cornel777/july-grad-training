@@ -77,28 +77,11 @@ const validationState: { [key: string]: string } = {};
 function submitHandler(e: Event) {
   e.preventDefault();
 
-  const firstnameInput = <HTMLInputElement>(
-    document.getElementById("first-name")
-  );
-  const lastnameInput = <HTMLInputElement>document.getElementById("last-name");
-  const firstName = firstnameInput.value;
-  const lastName = lastnameInput.value;
-  const firstNameIsValid: boolean = verifyNames(firstName);
-  const lastNameIsValid: boolean = verifyNames(lastName);
-
-  const dateInput = <HTMLInputElement>document.getElementById("birth-date");
-  const age = dateInput.value;
-  const over18: boolean = verifyAge(age);
-
-  const phoneInput = <HTMLInputElement>document.getElementById("telephone");
-  const phoneNumber = phoneInput.value;
-  const phoneIsFromUK = verifyPhoneUK(phoneNumber);
-
-  const emailInput = <HTMLInputElement>document.getElementById("email-address");
-  const emailAddress = emailInput.value;
-  const emailIsValid = verifyEmail(emailAddress);
-
-  let formIsValid = true;
+  const firstNameIsValid: boolean = validateFirstname();
+  const lastNameIsValid: boolean = validateLastname();
+  const over18: boolean = validateBirthDate();
+  const phoneIsFromUK: boolean = validatePhone();
+  const emailIsValid: boolean = validateEmail();
 
   createValidationState(validationState, firstNameIsValid, "firstname");
   createValidationState(validationState, lastNameIsValid, "lastname");
@@ -106,12 +89,8 @@ function submitHandler(e: Event) {
   createValidationState(validationState, phoneIsFromUK, "phone");
   createValidationState(validationState, emailIsValid, "email");
 
-  for (let key in validationState) {
-    if (validationState[key] == "invalid") {
-      formIsValid = false;
-      break;
-    }
-  }
+  //
+  let formIsValid = checkFormValidationState();
 
   outputErrorMessage(
     validationState.firstname,
@@ -140,6 +119,48 @@ function submitHandler(e: Event) {
     inputValidationErrorMessages.emailIsInvalid
   );
 
+  //
+  forceSubmit(formIsValid);
+}
+
+function validateFirstname(): boolean {
+  const firstnameInput = <HTMLInputElement>(
+    document.getElementById("first-name")
+  );
+  const firstName = firstnameInput.value;
+  return verifyNames(firstName);
+}
+function validateLastname(): boolean {
+  const lastnameInput = <HTMLInputElement>document.getElementById("last-name");
+  const lastName = lastnameInput.value;
+  return verifyNames(lastName);
+}
+function validateBirthDate(): boolean {
+  const dateInput = <HTMLInputElement>document.getElementById("birth-date");
+  const age = dateInput.value;
+  return verifyAge(age);
+}
+function validatePhone(): boolean {
+  const phoneInput = <HTMLInputElement>document.getElementById("telephone");
+  const phoneNumber = phoneInput.value;
+  return verifyPhoneUK(phoneNumber);
+}
+function validateEmail(): boolean {
+  const emailInput = <HTMLInputElement>document.getElementById("email-address");
+  const emailAddress = emailInput.value;
+  return verifyEmail(emailAddress);
+}
+
+function checkFormValidationState(): boolean {
+  for (let key in validationState) {
+    if (validationState[key] == "invalid") {
+      return false;
+    }
+  }
+  return true;
+}
+
+function forceSubmit(formIsValid: boolean) {
   if (formIsValid) aboutForm.submit();
 }
 
